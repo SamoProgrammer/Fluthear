@@ -2,7 +2,7 @@ import 'package:fluthear/main_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(FluthearApp());
+  runApp(const FluthearApp());
 }
 
 class FluthearApp extends StatelessWidget {
@@ -13,7 +13,7 @@ class FluthearApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Compose'),
       debugShowCheckedModeBanner: false,
-      home: MainPage(),
+      home: const MainPage(),
     );
   }
 }

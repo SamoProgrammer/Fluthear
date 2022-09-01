@@ -61,6 +61,7 @@ flutter:
   assets:
     - assets/images/crystal_cloud.png
     - assets/images/lightining_cloud.png
+    - assets/images/chance_of_rain.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
