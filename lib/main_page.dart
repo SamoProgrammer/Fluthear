@@ -1,7 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_const_constructors
 
+import 'package:fluthear/seven_days.dart';
 import 'package:flutter/material.dart';
 import 'package:fluthear/widgets/day_weather_card.dart';
+// import 'api/api_service.dart';
+// import 'api/models/current_weather_model.dart';
+import 'package:weather/weather.dart';
+import 'api/OpenWeatherApi/open_weather.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -11,6 +16,19 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  Weather? _currentWeatherModel;
+  double? temprature = 0;
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  void _getData() async {
+    _currentWeatherModel = await OpenWeather().getCurrentOpenWeather('Mashhad');
+    Future.delayed(const Duration(seconds: 3)).then((value) => setState(() {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +60,13 @@ class _MainPageState extends State<MainPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SevenDaysPage()));
+                            },
                             style: ElevatedButton.styleFrom(
                                 side: BorderSide(
                                     color: Color.fromARGB(120, 255, 255, 255)),
@@ -121,7 +145,7 @@ class _MainPageState extends State<MainPage> {
                           child: Column(
                             children: [
                               Text(
-                                '21',
+                                '${_currentWeatherModel!.temperature!.celsius!.toInt()}°',
                                 style: TextStyle(
                                     fontSize: 130,
                                     fontFamily: 'Vitro',
@@ -130,13 +154,13 @@ class _MainPageState extends State<MainPage> {
                                     height: 0.75),
                               ),
                               Text(
-                                'Thunderstorm',
+                                _currentWeatherModel!.weatherDescription!,
                                 style: TextStyle(
                                     fontSize: 22,
                                     color: Color.fromARGB(255, 255, 255, 255)),
                               ),
                               Text(
-                                'Monday, 17 May',
+                                _currentWeatherModel!.date!.hour.toString(),
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Color.fromARGB(255, 155, 200, 246)),
@@ -168,7 +192,7 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                 ),
                                 Text(
-                                  '13 km/h',
+                                  '${_currentWeatherModel!.windSpeed!} m/s',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Text(
@@ -192,7 +216,7 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                 ),
                                 Text(
-                                  '24%',
+                                  '${_currentWeatherModel!.humidity!}%',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Text(
@@ -210,18 +234,17 @@ class _MainPageState extends State<MainPage> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 7),
-                                  child: Image.asset(
-                                    'assets/images/chance_of_rain.png',
-                                    width: 24,
-                                    height: 24,
+                                  child: Icon(
+                                    Icons.cloud,
+                                    color: Colors.white,
                                   ),
                                 ),
                                 Text(
-                                  '87%',
+                                  '${_currentWeatherModel!.cloudiness!}%',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Text(
-                                  'Chance of rain',
+                                  'Cloudiness',
                                   style: TextStyle(
                                       color:
                                           Color.fromARGB(130, 255, 255, 255)),
@@ -237,7 +260,7 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20, left: 30, right: 30),
+              padding: const EdgeInsets.only(top: 20, left: 40, right: 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -255,15 +278,22 @@ class _MainPageState extends State<MainPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  DayWeatherCard(temperature: '25'),
-                  DayWeatherCard(temperature: '12',),
-                  DayWeatherCard(),
-                  DayWeatherCard(temperature: '16',)
-                ],
+              padding: const EdgeInsets.only(top: 20, bottom: 20),
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DayWeatherCard(temperature: '25'),
+                    DayWeatherCard(
+                      temperature: '12',
+                      isToday: true,
+                    ),
+                    DayWeatherCard(),
+                    DayWeatherCard(
+                      temperature: '16',
+                    )
+                  ],
+                ),
               ),
             )
           ],
@@ -272,6 +302,4 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: Color.fromARGB(255, 1, 12, 29),
     );
   }
-
-  RoundsPressed() {}
 }
