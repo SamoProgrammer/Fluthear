@@ -6,7 +6,7 @@ import 'package:fluthear/widgets/day_weather_card.dart';
 // import 'api/api_service.dart';
 // import 'api/models/current_weather_model.dart';
 import 'package:weather/weather.dart';
-import 'api/OpenWeatherApi/open_weather.dart';
+import 'api/open_weather.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _MainPageState extends State<MainPage> {
 
   void _getData() async {
     _currentWeatherModel = await OpenWeather().getCurrentOpenWeather('Mashhad');
-    Future.delayed(const Duration(seconds: 3)).then((value) => setState(() {}));
+    Future.delayed(const Duration(milliseconds: 1)).then((value) => setState(() {}));
   }
 
   @override
@@ -146,6 +146,7 @@ class _MainPageState extends State<MainPage> {
                             children: [
                               Text(
                                 '${_currentWeatherModel!.temperature!.celsius!.toInt()}°',
+                                // '21°',
                                 style: TextStyle(
                                     fontSize: 130,
                                     fontFamily: 'Vitro',
@@ -155,12 +156,14 @@ class _MainPageState extends State<MainPage> {
                               ),
                               Text(
                                 _currentWeatherModel!.weatherDescription!,
+                                // 'Thunderstorm',
                                 style: TextStyle(
                                     fontSize: 22,
                                     color: Color.fromARGB(255, 255, 255, 255)),
                               ),
                               Text(
-                                _currentWeatherModel!.date!.hour.toString(),
+                                // _currentWeatherModel!.date!.hour.toString(),
+                                'Monday',
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Color.fromARGB(255, 155, 200, 246)),
@@ -193,6 +196,7 @@ class _MainPageState extends State<MainPage> {
                                 ),
                                 Text(
                                   '${_currentWeatherModel!.windSpeed!} m/s',
+                                  // '2.6 km/h',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Text(
@@ -217,6 +221,7 @@ class _MainPageState extends State<MainPage> {
                                 ),
                                 Text(
                                   '${_currentWeatherModel!.humidity!}%',
+                                  // '23%',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Text(
@@ -241,6 +246,7 @@ class _MainPageState extends State<MainPage> {
                                 ),
                                 Text(
                                   '${_currentWeatherModel!.cloudiness!}%',
+                                  // '20%',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Text(

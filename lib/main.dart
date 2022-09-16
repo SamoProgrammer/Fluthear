@@ -1,4 +1,5 @@
 import 'package:fluthear/main_page.dart';
+import 'package:fluthear/seven_days.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class FluthearApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Compose'),
       debugShowCheckedModeBanner: false,
-      home: const MainPage(),
+      home: const SevenDaysPage(),
     );
   }
 }

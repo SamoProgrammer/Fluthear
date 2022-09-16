@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 
 class SingleDayWeather extends StatefulWidget {
-  const SingleDayWeather({Key? key}) : super(key: key);
+  final int minTemp;
+  final int maxTemp;
+  const SingleDayWeather({Key? key, this.minTemp = -5, this.maxTemp = 20})
+      : super(key: key);
 
   @override
   State<SingleDayWeather> createState() => _SingleDayWeatherState();
@@ -15,8 +18,9 @@ class _SingleDayWeatherState extends State<SingleDayWeather> {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Padding(
-        padding: const EdgeInsets.only(right: 40,left: 40,top: 15),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        padding: const EdgeInsets.only(right: 40, left: 40, top: 15),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             'Mon',
             style: TextStyle(color: Color.fromARGB(150, 255, 255, 255)),
@@ -40,11 +44,11 @@ class _SingleDayWeatherState extends State<SingleDayWeather> {
             // ignore: prefer_const_literals_to_create_immutables
             children: [
               Text(
-                '+20°',
+                '${widget.maxTemp.toString()}°',
                 style: TextStyle(color: Colors.white),
               ),
               Text(
-                '-5°',
+                '${widget.minTemp.toString()}°',
                 style: TextStyle(color: Color.fromARGB(130, 255, 255, 255)),
               )
             ],

@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:fluthear/main_page.dart';
 import 'package:flutter/material.dart';
+// import 'package:weather/weather.dart';
 import 'package:fluthear/widgets/single_day.dart';
+// import 'api/open_weather.dart';
 
 class SevenDaysPage extends StatefulWidget {
   const SevenDaysPage({Key? key}) : super(key: key);
@@ -11,6 +14,20 @@ class SevenDaysPage extends StatefulWidget {
 }
 
 class _SevenDaysPageState extends State<SevenDaysPage> {
+  // List<Weather>? forecastWeather;
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   _getData();
+  // }
+
+  // void _getData() async {
+  //   forecastWeather = await OpenWeather().getForecastByCity('Mashhad');
+  //   Future.delayed(const Duration(milliseconds: 1))
+  //       .then((value) => setState(() {}));
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +62,10 @@ class _SevenDaysPageState extends State<SevenDaysPage> {
                         children: [
                           OutlinedButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainPage()));
                             },
                             style: ElevatedButton.styleFrom(
                                 side: BorderSide(
@@ -234,15 +254,9 @@ class _SevenDaysPageState extends State<SevenDaysPage> {
                 ),
               ),
             ),
-            SingleDayWeather(),
-            SingleDayWeather(),
-            SingleDayWeather(),
-            SingleDayWeather(),
-            SingleDayWeather(),
-            SingleDayWeather(),
-            SingleDayWeather(),
-            SingleDayWeather(),
-            SingleDayWeather()
+            SingleDayWeather(maxTemp: 25),
+            SingleDayWeather(maxTemp: 27),
+            SingleDayWeather(maxTemp: 32),
           ],
         ),
       ),
