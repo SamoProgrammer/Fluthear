@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_const_constructors
 
+import 'package:fluthear/choose_city.dart';
 import 'package:fluthear/seven_days.dart';
 import 'package:flutter/material.dart';
 import 'package:fluthear/widgets/day_weather_card.dart';
@@ -26,7 +27,8 @@ class _MainPageState extends State<MainPage> {
 
   void _getData() async {
     _currentWeatherModel = await OpenWeather().getCurrentOpenWeather('Mashhad');
-    Future.delayed(const Duration(milliseconds: 1)).then((value) => setState(() {}));
+    Future.delayed(const Duration(milliseconds: 1))
+        .then((value) => setState(() {}));
   }
 
   @override
@@ -82,10 +84,20 @@ class _MainPageState extends State<MainPage> {
                           ),
                           Row(
                             children: [
-                              Icon(
-                                Icons.location_on,
-                                size: 26,
+                              IconButton(
+                                icon: Icon(
+                                  Icons.location_on,
+                                  size: 26,
+                                ),
                                 color: Colors.white,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ChooseCityPage()),
+                                  );
+                                },
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8),
