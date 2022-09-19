@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:fluthear/widgets/search_field.dart';
 import 'package:flutter/material.dart';
 
 class ChooseCityPage extends StatefulWidget {
@@ -31,55 +34,61 @@ class _ChooseCityPageState extends State<ChooseCityPage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 10, top: 20, bottom: 15),
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 2,
-                          color: Colors.white,
-                          style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: TextField(
-                    controller: searchText,
-                    style: TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(
-                        // ignore: unnecessary_const
-                        icon: const Icon(
-                          Icons.search,
-                          size: 26,
-                          color: Colors.white,
+                  padding: const EdgeInsets.only(
+                      left: 10, right: 10, top: 20, bottom: 15),
+                  child: SearchFieldWidget()),
+              Container(
+                height: MediaQuery.of(context).size.height / 1.75,
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: 25,
+                    itemBuilder: ((context, index) {
+                      return Container(
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(4),
+                        height: MediaQuery.of(context).size.height / 8,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Color.fromARGB(80, 255, 255, 255),
+                                width: 1),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                Text(
+                                  'Mashhad',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Text('Iran , Islamic Republic of',
+                                    style: TextStyle(color: Colors.white))
+                              ],
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: Color.fromARGB(30, 255, 255, 255)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: IconButton(
+                                    icon: Icon(
+                                      Icons.done,
+                                      size: 26,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {}),
+                              ),
+                            )
+                          ],
                         ),
-                        border: InputBorder.none),
-                  ),
-                ),
+                      );
+                    })),
               ),
-              //   Visibility(
-              //       child: ListView.builder(
-              //           itemCount: 5,
-              //           itemBuilder: ((context, index) {
-              //             return Padding(
-              //               padding: const EdgeInsets.only(
-              //                   right: 10, left: 10, top: 15, bottom: 15),
-              //               child: Container(
-              //                 height: MediaQuery.of(context).size.height / 5,
-              //                 width: MediaQuery.of(context).size.width,
-              //                 child: Column(
-              //                   mainAxisAlignment: MainAxisAlignment.start,
-              //                   crossAxisAlignment: CrossAxisAlignment.center,
-              //                   children: const [
-              //                     Text(
-              //                       'Mashhad',
-              //                       style: TextStyle(color: Colors.white),
-              //                     ),
-              //                     Text('Iran , Islamic Republic of',
-              //                         style: TextStyle(color: Colors.white))
-              //                   ],
-              //                 ),
-              //               ),
-              //             );
-              //           })))
             ],
           ),
         ),

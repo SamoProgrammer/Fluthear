@@ -7,7 +7,6 @@ void main() {
 
 class FluthearApp extends StatelessWidget {
   const FluthearApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
