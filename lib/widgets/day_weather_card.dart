@@ -3,10 +3,14 @@
 import 'package:flutter/material.dart';
 
 class DayWeatherCard extends StatefulWidget {
-  final String? temperature;
-  final bool isToday;
-
-  const DayWeatherCard({Key? key, this.temperature, this.isToday = false})
+  final String temperature;
+  final String time;
+  final bool isNow;
+  const DayWeatherCard(
+      {Key? key,
+      required this.temperature,
+      required this.time,
+      this.isNow = false})
       : super(key: key);
   @override
   State<DayWeatherCard> createState() => _DayWeatherCardState();
@@ -18,7 +22,7 @@ class _DayWeatherCardState extends State<DayWeatherCard> {
   var cardColor = Colors.transparent;
   @override
   Widget build(BuildContext context) {
-    if (widget.isToday) {
+    if (widget.isNow) {
       cardHeight = 115;
       cardWidth = 80;
       cardColor = Color.fromARGB(255, 17, 105, 243);
@@ -37,7 +41,7 @@ class _DayWeatherCardState extends State<DayWeatherCard> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              '23°',
+              widget.temperature,
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             Image.asset(
@@ -45,7 +49,7 @@ class _DayWeatherCardState extends State<DayWeatherCard> {
               width: 55,
             ),
             Text(
-              '10:00',
+              widget.time,
               style: TextStyle(
                   color: Color.fromARGB(150, 255, 255, 255), fontSize: 10),
             ),

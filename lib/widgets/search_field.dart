@@ -40,43 +40,45 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
                 EdgeInsets.only(left: 10, right: 10, bottom: 15, top: 10),
             // ignore: unnecessary_const
             suffixIcon: IconButton(
-              icon: Icon(
-                Icons.search,
-                size: 26,
-                color: Colors.white,
-              ),
-              onPressed: () async {
-                try {
-                  var temp =
-                      await openWeather.getCurrentOpenWeather(searchText.text);
-                  await prefService.setCache(searchText.text).whenComplete(() {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MainPage()));
-                  });
-                } on OpenWeatherAPIException {
-                  var dialog = AlertDialog(
-                  title: Text('Inavlid City.'),
-                  content: Text('Please Double Check Your Spelling.'),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MainPage()));
-                        },
-                        child: Text('OK'))
-                  ],
-                );
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return dialog;
+                icon: Icon(
+                  Icons.search,
+                  size: 26,
+                  color: Colors.white,
+                ),
+                onPressed: () async {
+                  try {
+                    var temp = await openWeather
+                        .getCurrentOpenWeather(searchText.text);
+                    await prefService
+                        .setCache(searchText.text)
+                        .whenComplete(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainPage()));
                     });
-                }
-            ),
+                  } on OpenWeatherAPIException {
+                    var dialog = AlertDialog(
+                      title: Text('Inavlid City.'),
+                      content: Text('Please Double Check Your Spelling.'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const MainPage()));
+                            },
+                            child: Text('OK'))
+                      ],
+                    );
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return dialog;
+                        });
+                  }
+                }),
             border: InputBorder.none),
       ),
     );

@@ -21,6 +21,7 @@ class _MainPageState extends State<MainPage> {
   PrefService prefService = PrefService();
   bool isSeachFieldEnabled = false;
   Weather? _currentWeatherModel;
+  List<Weather>? _currentForecastModel;
   double? temprature = 0;
   @override
   void initState() {
@@ -31,6 +32,7 @@ class _MainPageState extends State<MainPage> {
   void _getData() async {
     var temp = await prefService.readCache();
     _currentWeatherModel = await OpenWeather().getCurrentOpenWeather(temp);
+    _currentForecastModel = await OpenWeather().getForecastByCity(temp);
     Future.delayed(const Duration(milliseconds: 1))
         .then((value) => setState(() {}));
   }
@@ -263,12 +265,19 @@ class _MainPageState extends State<MainPage> {
                     'Today',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
-                  Text(
-                    '7 days >',
-                    style: TextStyle(
-                        color: Color.fromARGB(120, 255, 255, 255),
-                        fontSize: 14),
-                  )
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SevenDaysPage()));
+                      },
+                      child: Text(
+                        '7 days >',
+                        style: TextStyle(
+                            color: Color.fromARGB(120, 255, 255, 255),
+                            fontSize: 14),
+                      ))
                 ],
               ),
             ),
@@ -278,14 +287,28 @@ class _MainPageState extends State<MainPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    DayWeatherCard(temperature: '25'),
                     DayWeatherCard(
-                      temperature: '12',
-                      isToday: true,
+                      temperature:
+                          "${_currentForecastModel![0].temperature!.celsius!.toInt()}°",
+                      time:
+                          "${_currentForecastModel![0].date!.hour}:${_currentForecastModel![0].date!.minute}",
+                      isNow: true,
                     ),
-                    DayWeatherCard(),
                     DayWeatherCard(
-                      temperature: '16',
+                      temperature:
+                          "${_currentForecastModel![1].temperature!.celsius!.toInt()}°",
+                      time:
+                          "${_currentForecastModel![1].date!.hour}:${_currentForecastModel![0].date!.minute}",
+                    ),DayWeatherCard(
+                      temperature:
+                          "${_currentForecastModel![2].temperature!.celsius!.toInt()}°",
+                      time:
+                          "${_currentForecastModel![2].date!.hour}:${_currentForecastModel![0].date!.minute}",
+                    ),DayWeatherCard(
+                      temperature:
+                          "${_currentForecastModel![3].temperature!.celsius!.toInt()}°",
+                      time:
+                          "${_currentForecastModel![3].date!.hour}:${_currentForecastModel![0].date!.minute}",
                     )
                   ],
                 ),
@@ -299,31 +322,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   void changeHeadBar() {
-    if (isSeachFieldEnabled) {
-      setState(() {
-        isSeachFieldEnabled = false;
-      });
-    } else {
-      setState(() {
-        isSeachFieldEnabled = true;
-      });
-    }
-    // if (isSeachFieldEnabled) {
-    //   setState(() {
-    //     headBarTitle = SearchFieldWidget();
-    //     headBarIcon = Icon(
-    //       Icons.close,
-    //       size: 26,
-    //     );
-    //   });
-    // } else {
-    //   setState(() {
-    //     headBarTitle = CityNameWidget();
-    //     headBarIcon = Icon(
-    //       Icons.location_on,
-    //       size: 26,
-    //     );
-    //   });
-    // }
+    setState(() {
+      isSeachFieldEnabled = isSeachFieldEnabled ? false : true;
+    });
   }
 }

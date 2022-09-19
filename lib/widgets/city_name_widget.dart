@@ -31,8 +31,14 @@ class _CityNameWidgetState extends State<CityNameWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
-      child: Text(cityName,
+      child: Text(cityName.capitalize(),
           style: const TextStyle(fontSize: 26, color: Colors.white)),
     );
+  }
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
   }
 }
