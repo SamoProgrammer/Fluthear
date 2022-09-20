@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:weather/weather.dart';
 
 class OpenWeather {
@@ -11,5 +12,12 @@ class OpenWeather {
   Future<List<Weather>> getForecastByCity(String cityName) async {
     List<Weather> forecast = await factory.fiveDayForecastByCityName(cityName);
     return forecast;
+  }
+
+  Future<String> getImageByDescription(String description) async {
+    var temp = description.toLowerCase();
+    if (temp.contains('rain')) {
+      return 'assets/images';
+    }
   }
 }
