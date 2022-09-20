@@ -1,18 +1,14 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_const_constructors
-
 import 'package:fluthear/services/pref_service.dart';
-import 'package:fluthear/seven_days.dart';
 import 'package:fluthear/widgets/city_name_widget.dart';
 import 'package:fluthear/widgets/search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:fluthear/widgets/day_weather_card.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/weather.dart';
 import 'api/open_weather.dart';
+import 'package:intl/intl.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
-
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -30,6 +26,9 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _getData() async {
+    if (!(await prefService.checkCache())) {
+      await prefService.setCache('Tehran');
+    }
     var temp = await prefService.readCache();
     _currentWeatherModel = await OpenWeather().getCurrentOpenWeather(temp);
     _currentForecastModel = await OpenWeather().getForecastByCity(temp);
@@ -65,29 +64,8 @@ class _MainPageState extends State<MainPage> {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          OutlinedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SevenDaysPage()));
-                            },
-                            style: ElevatedButton.styleFrom(
-                                side: BorderSide(
-                                    color: Color.fromARGB(120, 255, 255, 255)),
-                                shape: CircleBorder(),
-                                padding: EdgeInsets.all(18),
-                                primary: Colors.transparent,
-                                onPrimary: Colors.transparent),
-                            child: Icon(
-                              Icons.workspaces_rounded,
-                              color: Colors.white,
-                              size: 22,
-                            ),
-                          ),
                           Row(
                             children: [
                               IconButton(
@@ -102,7 +80,10 @@ class _MainPageState extends State<MainPage> {
                                       ),
                                 color: Colors.white,
                                 onPressed: () {
-                                  changeHeadBar();
+                                  setState(() {
+                                    isSeachFieldEnabled =
+                                        isSeachFieldEnabled ? false : true;
+                                  });
                                 },
                               ),
                               isSeachFieldEnabled
@@ -110,17 +91,6 @@ class _MainPageState extends State<MainPage> {
                                   : CityNameWidget()
                             ],
                           ),
-                          OutlinedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                side: BorderSide(color: Colors.transparent),
-                                shape: CircleBorder(),
-                                padding: EdgeInsets.all(16),
-                                primary: Colors.transparent,
-                                onPrimary: Colors.transparent),
-                            child: Icon(Icons.more_vert,
-                                color: Colors.white, size: 28),
-                          )
                         ],
                       ),
                       Container(
@@ -137,7 +107,6 @@ class _MainPageState extends State<MainPage> {
                             children: [
                               Text(
                                 '${_currentWeatherModel!.temperature!.celsius!.toInt()}°',
-                                // '21°',
                                 style: TextStyle(
                                     fontSize: 130,
                                     fontFamily: 'Vitro',
@@ -147,14 +116,14 @@ class _MainPageState extends State<MainPage> {
                               ),
                               Text(
                                 _currentWeatherModel!.weatherDescription!,
-                                // 'Thunderstorm',
                                 style: TextStyle(
                                     fontSize: 22,
                                     color: Color.fromARGB(255, 255, 255, 255)),
                               ),
                               Text(
-                                // _currentWeatherModel!.date!.hour.toString(),
-                                'Monday',
+                                DateFormat('EEEE')
+                                    .format(_currentWeatherModel!.date!)
+                                    .capitalize(),
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Color.fromARGB(255, 155, 200, 246)),
@@ -187,7 +156,6 @@ class _MainPageState extends State<MainPage> {
                                 ),
                                 Text(
                                   '${_currentWeatherModel!.windSpeed!} m/s',
-                                  // '2.6 km/h',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Text(
@@ -212,7 +180,6 @@ class _MainPageState extends State<MainPage> {
                                 ),
                                 Text(
                                   '${_currentWeatherModel!.humidity!}%',
-                                  // '23%',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Text(
@@ -237,7 +204,6 @@ class _MainPageState extends State<MainPage> {
                                 ),
                                 Text(
                                   '${_currentWeatherModel!.cloudiness!}%',
-                                  // '20%',
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 Text(
@@ -259,25 +225,12 @@ class _MainPageState extends State<MainPage> {
             Padding(
               padding: const EdgeInsets.only(top: 20, left: 40, right: 40),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Today',
+                    'Today Forecast',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SevenDaysPage()));
-                      },
-                      child: Text(
-                        '7 days >',
-                        style: TextStyle(
-                            color: Color.fromARGB(120, 255, 255, 255),
-                            fontSize: 14),
-                      ))
                 ],
               ),
             ),
@@ -299,12 +252,14 @@ class _MainPageState extends State<MainPage> {
                           "${_currentForecastModel![1].temperature!.celsius!.toInt()}°",
                       time:
                           "${_currentForecastModel![1].date!.hour}:${_currentForecastModel![0].date!.minute}",
-                    ),DayWeatherCard(
+                    ),
+                    DayWeatherCard(
                       temperature:
                           "${_currentForecastModel![2].temperature!.celsius!.toInt()}°",
                       time:
                           "${_currentForecastModel![2].date!.hour}:${_currentForecastModel![0].date!.minute}",
-                    ),DayWeatherCard(
+                    ),
+                    DayWeatherCard(
                       temperature:
                           "${_currentForecastModel![3].temperature!.celsius!.toInt()}°",
                       time:
@@ -319,11 +274,5 @@ class _MainPageState extends State<MainPage> {
       ]),
       backgroundColor: Color.fromARGB(255, 1, 12, 29),
     );
-  }
-
-  void changeHeadBar() {
-    setState(() {
-      isSeachFieldEnabled = isSeachFieldEnabled ? false : true;
-    });
   }
 }

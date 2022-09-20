@@ -15,4 +15,8 @@ class PrefService {
     SharedPreferences _preferences = await SharedPreferences.getInstance();
     _preferences.remove("default_city");
   }
+   Future checkCache() async {
+    SharedPreferences _preferences = await SharedPreferences.getInstance();
+    return _preferences.containsKey("default_city");
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:fluthear/main_page.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main(){
   runApp(const FluthearApp());
 }
 
