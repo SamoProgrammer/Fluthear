@@ -14,10 +14,41 @@ class OpenWeather {
     return forecast;
   }
 
-  Future<String> getImageByDescription(String description) async {
+  String getImageByDescription(String description, int hour) {
     var temp = description.toLowerCase();
-    if (temp.contains('rain')) {
-      return 'assets/images';
+    var addressPrefix = 'assets/images/';
+    String image = '';
+    var dayConditions = {
+      'rain': 'rainy_cloud.png',
+      'part': 'partly_cloud.png',
+      'snow': 'snow_cloud.png',
+      'light': 'lightining_cloud.png',
+      'cloud': 'cloud.png',
+    };
+    var nightConditions = {
+      'rain': 'rainy_moon.png',
+      'part': 'cloud_moon.png',
+      'light': 'lightining_cloud.png',
+      'snow': 'snow_moon.png',
+      'cloud': 'cloud_moon.png',
+    };
+    if (hour <= 4 || hour > 17) {
+      for (var i in nightConditions.entries) {
+        if (temp.contains(i.key)) {
+          image = addressPrefix + i.value;
+        } else {
+          image = '${addressPrefix}star_moon.png';
+        }
+      }
+    } else {
+      for (var i in dayConditions.entries) {
+        if (temp.contains(i.key)) {
+          image = addressPrefix + i.value;
+        } else {
+          image = '${addressPrefix}sun.png';
+        }
+      }
     }
+    return image;
   }
 }

@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:fluthear/forecast_page.dart';
 import 'package:fluthear/services/pref_service.dart';
 import 'package:fluthear/widgets/city_name_widget.dart';
 import 'package:fluthear/widgets/search_field.dart';
@@ -18,7 +21,7 @@ class _MainPageState extends State<MainPage> {
   bool isSeachFieldEnabled = false;
   Weather? _currentWeatherModel;
   List<Weather>? _currentForecastModel;
-  double? temprature = 0;
+
   @override
   void initState() {
     super.initState();
@@ -43,7 +46,7 @@ class _MainPageState extends State<MainPage> {
         Column(
           children: [
             Container(
-              height: 625,
+              height: 555,
               margin: EdgeInsets.only(left: 9, top: 9, right: 9),
               alignment: Alignment.topCenter,
               decoration: BoxDecoration(
@@ -95,11 +98,13 @@ class _MainPageState extends State<MainPage> {
                       ),
                       Container(
                           alignment: Alignment.topCenter,
-                          height: 250,
-                          child: Image.asset(
-                              'assets/images/lightining_cloud.png')),
+                          height: 230,
+                          child: Image.asset(OpenWeather()
+                              .getImageByDescription(
+                                  _currentWeatherModel!.weatherDescription!,
+                                  _currentWeatherModel!.date!.hour))),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.only(bottom: 7),
                         child: Container(
                           height: 145,
                           alignment: Alignment.topCenter,
@@ -225,48 +230,56 @@ class _MainPageState extends State<MainPage> {
             Padding(
               padding: const EdgeInsets.only(top: 20, left: 40, right: 40),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Today Forecast',
+                    'Today',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ForecastPage(
+                                      forcast: _currentForecastModel!,
+                                    )));
+                      },
+                      child: Text(
+                        '5 Days >',
+                        style: TextStyle(
+                            color: Color.fromARGB(115, 255, 255, 255),
+                            fontSize: 16),
+                      ))
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20, bottom: 20),
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    DayWeatherCard(
-                      temperature:
-                          "${_currentForecastModel![0].temperature!.celsius!.toInt()}°",
-                      time:
-                          "${_currentForecastModel![0].date!.hour}:${_currentForecastModel![0].date!.minute}",
-                      isNow: true,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 4,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Center(
+                              child: DayWeatherCard(
+                                  temperature:
+                                      '${_currentForecastModel![index].temperature!.celsius!.toInt()}°',
+                                  time: _currentForecastModel![index].date!,
+                                  description: _currentForecastModel![index]
+                                      .weatherDescription!),
+                            );
+                          }),
                     ),
-                    DayWeatherCard(
-                      temperature:
-                          "${_currentForecastModel![1].temperature!.celsius!.toInt()}°",
-                      time:
-                          "${_currentForecastModel![1].date!.hour}:${_currentForecastModel![0].date!.minute}",
-                    ),
-                    DayWeatherCard(
-                      temperature:
-                          "${_currentForecastModel![2].temperature!.celsius!.toInt()}°",
-                      time:
-                          "${_currentForecastModel![2].date!.hour}:${_currentForecastModel![0].date!.minute}",
-                    ),
-                    DayWeatherCard(
-                      temperature:
-                          "${_currentForecastModel![3].temperature!.celsius!.toInt()}°",
-                      time:
-                          "${_currentForecastModel![3].date!.hour}:${_currentForecastModel![0].date!.minute}",
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             )
           ],

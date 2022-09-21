@@ -1,15 +1,18 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:fluthear/api/open_weather.dart';
 import 'package:flutter/material.dart';
 
 class DayWeatherCard extends StatefulWidget {
   final String temperature;
-  final String time;
+  final DateTime time;
+  final String description;
   final bool isNow;
   const DayWeatherCard(
       {Key? key,
       required this.temperature,
       required this.time,
+      required this.description,
       this.isNow = false})
       : super(key: key);
   @override
@@ -45,11 +48,12 @@ class _DayWeatherCardState extends State<DayWeatherCard> {
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             Image.asset(
-              'assets/images/crystal_cloud.png',
+              OpenWeather()
+                  .getImageByDescription(widget.description, widget.time.hour),
               width: 55,
             ),
             Text(
-              widget.time,
+              '${widget.time.hour}:${widget.time.minute}',
               style: TextStyle(
                   color: Color.fromARGB(150, 255, 255, 255), fontSize: 10),
             ),
