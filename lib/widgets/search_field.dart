@@ -3,7 +3,6 @@
 import 'package:fluthear/main_page.dart';
 import 'package:fluthear/services/pref_service.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/weather.dart';
 
 import '../api/open_weather.dart';
@@ -47,8 +46,6 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
                 ),
                 onPressed: () async {
                   try {
-                    var temp = await openWeather
-                        .getCurrentOpenWeather(searchText.text);
                     await prefService
                         .setCache(searchText.text)
                         .whenComplete(() {

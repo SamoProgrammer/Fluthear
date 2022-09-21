@@ -1,6 +1,5 @@
 import 'package:fluthear/services/pref_service.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CityNameWidget extends StatefulWidget {
   const CityNameWidget({
@@ -39,6 +38,6 @@ class _CityNameWidgetState extends State<CityNameWidget> {
 
 extension StringExtension on String {
   String capitalize() {
-    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }

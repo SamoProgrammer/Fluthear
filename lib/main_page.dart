@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+
 
 import 'package:fluthear/forecast_page.dart';
 import 'package:fluthear/services/pref_service.dart';
@@ -47,9 +47,9 @@ class _MainPageState extends State<MainPage> {
           children: [
             Container(
               height: 555,
-              margin: EdgeInsets.only(left: 9, top: 9, right: 9),
+              margin: const EdgeInsets.only(left: 9, top: 9, right: 9),
               alignment: Alignment.topCenter,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(25)),
                   gradient: LinearGradient(
                       colors: [
@@ -73,11 +73,11 @@ class _MainPageState extends State<MainPage> {
                             children: [
                               IconButton(
                                 icon: isSeachFieldEnabled
-                                    ? Icon(
+                                    ? const Icon(
                                         Icons.close,
                                         size: 26,
                                       )
-                                    : Icon(
+                                    : const Icon(
                                         Icons.location_on,
                                         size: 26,
                                       ),
@@ -90,8 +90,8 @@ class _MainPageState extends State<MainPage> {
                                 },
                               ),
                               isSeachFieldEnabled
-                                  ? SearchFieldWidget()
-                                  : CityNameWidget()
+                                  ? const SearchFieldWidget()
+                                  : const CityNameWidget()
                             ],
                           ),
                         ],
@@ -112,7 +112,7 @@ class _MainPageState extends State<MainPage> {
                             children: [
                               Text(
                                 '${_currentWeatherModel!.temperature!.celsius!.toInt()}°',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 130,
                                     fontFamily: 'Vitro',
                                     fontWeight: FontWeight.bold,
@@ -121,7 +121,7 @@ class _MainPageState extends State<MainPage> {
                               ),
                               Text(
                                 _currentWeatherModel!.weatherDescription!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 22,
                                     color: Color.fromARGB(255, 255, 255, 255)),
                               ),
@@ -129,7 +129,7 @@ class _MainPageState extends State<MainPage> {
                                 DateFormat('EEEE')
                                     .format(_currentWeatherModel!.date!)
                                     .capitalize(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 14,
                                     color: Color.fromARGB(255, 155, 200, 246)),
                               )
@@ -142,83 +142,77 @@ class _MainPageState extends State<MainPage> {
                             right: 10, left: 10, bottom: 30),
                         child: Container(
                           height: 1,
-                          color: Color.fromARGB(50, 255, 255, 255),
+                          color: const Color.fromARGB(50, 255, 255, 255),
                         ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 7),
-                                  child: Icon(
-                                    Icons.wind_power,
-                                    color: Colors.white,
-                                  ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 7),
+                                child: Icon(
+                                  Icons.wind_power,
+                                  color: Colors.white,
                                 ),
-                                Text(
-                                  '${_currentWeatherModel!.windSpeed!} m/s',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Text(
-                                  'Wind',
-                                  style: TextStyle(
-                                      color:
-                                          Color.fromARGB(130, 255, 255, 255)),
-                                )
-                              ],
-                            ),
+                              ),
+                              Text(
+                                '${_currentWeatherModel!.windSpeed!} m/s',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              const Text(
+                                'Wind',
+                                style: TextStyle(
+                                    color:
+                                       Color.fromARGB(130, 255, 255, 255)),
+                              )
+                            ],
                           ),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 7),
-                                  child: Icon(
-                                    Icons.water_drop,
-                                    color: Colors.white,
-                                  ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 7),
+                                child: Icon(
+                                  Icons.water_drop,
+                                  color: Colors.white,
                                 ),
-                                Text(
-                                  '${_currentWeatherModel!.humidity!}%',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Text(
-                                  'Humidity',
-                                  style: TextStyle(
-                                      color:
-                                          Color.fromARGB(130, 255, 255, 255)),
-                                )
-                              ],
-                            ),
+                              ),
+                              Text(
+                                '${_currentWeatherModel!.humidity!}%',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              const Text(
+                                'Humidity',
+                                style: TextStyle(
+                                    color:
+                                        Color.fromARGB(130, 255, 255, 255)),
+                              )
+                            ],
                           ),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 7),
-                                  child: Icon(
-                                    Icons.cloud,
-                                    color: Colors.white,
-                                  ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 7),
+                                child: Icon(
+                                  Icons.cloud,
+                                  color: Colors.white,
                                 ),
-                                Text(
-                                  '${_currentWeatherModel!.cloudiness!}%',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Text(
-                                  'Cloudiness',
-                                  style: TextStyle(
-                                      color:
-                                          Color.fromARGB(130, 255, 255, 255)),
-                                )
-                              ],
-                            ),
+                              ),
+                              Text(
+                                '${_currentWeatherModel!.cloudiness!}%',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              const Text(
+                                'Cloudiness',
+                                style: TextStyle(
+                                    color:
+                                        Color.fromARGB(130, 255, 255, 255)),
+                              )
+                            ],
                           )
                         ],
                       )
@@ -232,7 +226,7 @@ class _MainPageState extends State<MainPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Today',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
@@ -245,7 +239,7 @@ class _MainPageState extends State<MainPage> {
                                       forcast: _currentForecastModel!,
                                     )));
                       },
-                      child: Text(
+                      child: const Text(
                         '5 Days >',
                         style: TextStyle(
                             color: Color.fromARGB(115, 255, 255, 255),
@@ -285,7 +279,7 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ]),
-      backgroundColor: Color.fromARGB(255, 1, 12, 29),
+      backgroundColor: const Color.fromARGB(255, 1, 12, 29),
     );
   }
 }

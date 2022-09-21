@@ -15,11 +15,11 @@ class _ForecastPageState extends State<ForecastPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 1, 12, 29),
+      backgroundColor: const Color.fromARGB(255, 1, 12, 29),
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(13),
+            margin: const EdgeInsets.all(13),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -27,16 +27,16 @@ class _ForecastPageState extends State<ForecastPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.arrow_back,color: Colors.white,size: 26,)),
-                Text(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 26,
+                    )),
+                const Text(
                   '5 Day Forecast',
                   style: TextStyle(fontSize: 24, color: Colors.white),
                 ),
-                Container(
-                  // color: Colors.white,
-                  // height: 1,
-                  // width: MediaQuery.of(context).size.width / 3,
-                )
+                Container()
               ],
             ),
           ),
@@ -49,7 +49,7 @@ class _ForecastPageState extends State<ForecastPage> {
               itemBuilder: ((context, index) => Container(
                     height: MediaQuery.of(context).size.height / 8,
                     margin: const EdgeInsets.all(10),
-                    padding: EdgeInsets.all(7),
+                    padding: const EdgeInsets.all(7),
                     alignment: Alignment.topCenter,
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -68,13 +68,13 @@ class _ForecastPageState extends State<ForecastPage> {
                         children: [
                           Text(
                               '${DateFormat('EEEE').format(widget.forcast[index].date!)}  ${widget.forcast[index].date!.hour}:${widget.forcast[index].date!.minute}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Color.fromARGB(153, 255, 255, 255))),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(widget.forcast[index].weatherDescription!,
-                                  style: TextStyle(color: Colors.white)),
+                                  style: const TextStyle(color: Colors.white)),
                               Image.asset(
                                 OpenWeather().getImageByDescription(
                                     widget.forcast[index].weatherDescription!,
@@ -85,7 +85,8 @@ class _ForecastPageState extends State<ForecastPage> {
                           ),
                           Text(
                             '${widget.forcast[index].temperature!.celsius!.toInt()}°',
-                            style: TextStyle(color: Colors.white, fontSize: 22),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 22),
                           )
                         ],
                       ),

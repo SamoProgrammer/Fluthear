@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:weather/weather.dart';
 
 class OpenWeather {
