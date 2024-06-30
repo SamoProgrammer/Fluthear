@@ -1,16 +1,6 @@
-# fluthear
+[Fluthear](https://repository-images.githubusercontent.com/490342766/d25df91a-f0ad-46ff-9932-d8dbfefbf519)
+# Fluthear
 
-A new Flutter project.
+### A simple but beautiful weather written in dart and flutter
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+you can download the app from the [releases](https://github.com/SamoProgrammer/Fluthear/releases/tag/release) page
